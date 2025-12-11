@@ -1,7 +1,7 @@
 # TARGETPLATFORM and BUILDPLATFORM are automatically filled in by Docker buildx.
 # They should not be set in the global scope manually.
 
-ARG BUILDPLATFORM=linux/amd64
+#ARG BUILDPLATFORM=linux/amd64
 
 FROM --platform=${BUILDPLATFORM} mcr.microsoft.com/dotnet/sdk:9.0 AS builder
 
@@ -41,7 +41,7 @@ WORKDIR /server
 COPY --from=builder /TShock/TShockLauncher/output ./
 COPY --chmod=755 osc-entrypoint.sh ./osc-entrypoint.sh
 
-VOLUME ["/config", "/worlds", "/plugins"]
+VOLUME ["/data"]
 EXPOSE 7777 8080
 
 ENTRYPOINT [ "./osc-entrypoint.sh" ]
